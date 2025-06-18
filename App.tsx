@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { CameraScreen } from './src/screens/CameraScreen';
@@ -6,24 +6,12 @@ import { HistoryScreen } from './src/screens/HistoryScreen';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { database } from './src/database/Database';
-import { plateRecognitionService } from './src/services/PlateRecognitionService';
+import { View, Text, StyleSheet } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
-  useEffect(() => {
-    const initialize = async () => {
-      try {
-        await database.init();
-        await plateRecognitionService.initialize();
-      } catch (error) {
-        console.error('Initialization error:', error);
-      }
-    };
-
-    initialize();
-  }, []);
+  console.log('[App] Rendering main app component');
 
   return (
     <SafeAreaProvider>
@@ -49,7 +37,7 @@ export default function App() {
           <Tab.Screen 
             name="Camera" 
             component={CameraScreen}
-            options={{ headerShown: false }}
+            options={{ title: 'Camera' }}
           />
           <Tab.Screen 
             name="History" 
@@ -60,4 +48,19 @@ export default function App() {
       </NavigationContainer>
     </SafeAreaProvider>
   );
-} 
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
+  errorText: {
+    color: 'red',
+    fontSize: 16,
+    textAlign: 'center',
+    padding: 20,
+  },
+}); 

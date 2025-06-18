@@ -1,31 +1,28 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, Text, FlatList, RefreshControl } from 'react-native';
-import { database, LicensePlateRecord } from '../database/Database';
+import React from 'react';
+import { StyleSheet, View, Text, FlatList } from 'react-native';
+
+// Mock data for demonstration
+const mockRecords = [
+  {
+    id: 1,
+    plateNumber: 'ABC123',
+    timestamp: Date.now() - 3600000, // 1 hour ago
+    latitude: 37.7749,
+    longitude: -122.4194,
+  },
+  {
+    id: 2,
+    plateNumber: 'XYZ789',
+    timestamp: Date.now() - 7200000, // 2 hours ago
+    latitude: 37.7849,
+    longitude: -122.4094,
+  },
+];
 
 export const HistoryScreen: React.FC = () => {
-  const [records, setRecords] = useState<LicensePlateRecord[]>([]);
-  const [refreshing, setRefreshing] = useState(false);
+  console.log('[HistoryScreen] Rendering history screen');
 
-  const loadRecords = async () => {
-    try {
-      const allRecords = await database.getAllLicensePlates();
-      setRecords(allRecords);
-    } catch (error) {
-      console.error('Error loading records:', error);
-    }
-  };
-
-  useEffect(() => {
-    loadRecords();
-  }, []);
-
-  const onRefresh = async () => {
-    setRefreshing(true);
-    await loadRecords();
-    setRefreshing(false);
-  };
-
-  const renderItem = ({ item }: { item: LicensePlateRecord }) => (
+  const renderItem = ({ item }: { item: any }) => (
     <View style={styles.recordContainer}>
       <Text style={styles.plateNumber}>{item.plateNumber}</Text>
       <Text style={styles.timestamp}>
@@ -39,15 +36,20 @@ export const HistoryScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.headerTitle}>Detection History</Text>
+        <Text style={styles.headerSubtitle}>Mock data - Database not connected</Text>
+      </View>
+      
       <FlatList
-        data={records}
+        data={mockRecords}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id?.toString() || item.timestamp.toString()}
-        refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-        }
+        keyExtractor={(item) => item.id.toString()}
         ListEmptyComponent={
-          <Text style={styles.emptyText}>No license plates detected yet</Text>
+          <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>No license plates detected yet</Text>
+            <Text style={styles.emptySubtext}>This is placeholder data</Text>
+          </View>
         }
       />
     </View>
@@ -58,6 +60,22 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#f5f5f5',
+  },
+  header: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderBottomWidth: 1,
+    borderBottomColor: '#e0e0e0',
+  },
+  headerTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#333',
+  },
+  headerSubtitle: {
+    fontSize: 14,
+    color: '#666',
+    marginTop: 5,
   },
   recordContainer: {
     backgroundColor: 'white',
@@ -75,6 +93,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 4,
+    color: '#333',
   },
   timestamp: {
     fontSize: 14,
@@ -85,10 +104,21 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#666',
   },
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 40,
+  },
   emptyText: {
     textAlign: 'center',
-    marginTop: 32,
     fontSize: 16,
     color: '#666',
+    marginBottom: 8,
+  },
+  emptySubtext: {
+    textAlign: 'center',
+    fontSize: 14,
+    color: '#999',
   },
 }); 

@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Text, Alert, Platform } from 'react-native';
-import { Camera, CameraType } from 'expo-camera';
+import { Camera } from 'expo-camera';
 import { plateRecognitionService } from '../services/PlateRecognitionService';
 import { database, LicensePlateRecord } from '../database/Database';
 
@@ -130,7 +130,7 @@ export const CameraScreen: React.FC = () => {
       <Camera
         ref={camera}
         style={StyleSheet.absoluteFill}
-        type={CameraType.back}
+        facing="back"
         onFrameDetected={onFrameDetected}
         frameInterval={5}
       />

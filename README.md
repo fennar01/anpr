@@ -1,181 +1,55 @@
-# ANPR (Automatic Number Plate Recognition) App
+# ANPR (Automatic Number Plate Recognition)
 
-A React Native/Expo application for automatic license plate recognition using camera and machine learning.
-
-## Current Status
-
-🚧 **This is a simplified prototype version** 🚧
-
-The app currently runs with placeholder functionality while the core features are being developed. All complex dependencies have been temporarily replaced with mock implementations to ensure the app loads and runs properly.
+This project is a cross-platform (React Native + Expo) app for live license plate recognition using your device's camera and on-device text recognition.
 
 ## Features
+- Live camera preview using `expo-camera`
+- Real-time license plate detection using `@react-native-ml-kit/text-recognition`
+- Bounding boxes drawn around detected text (license plates) anywhere in the frame
+- Works on Android emulator and physical devices
 
-### Currently Working ✅
-- 📱 **Basic App Structure**: React Native/Expo app with tab navigation
-- 🎨 **UI Components**: Camera and History screens with placeholder content
-- 📱 **Navigation**: Bottom tab navigation between Camera and History screens
-- 🔧 **Development Setup**: Clean Expo SDK 53 setup with TypeScript
+## Setup
 
-### Planned Features 🚧
-- 📷 **Camera Integration**: Real-time camera feed for license plate detection
-- 🔍 **ML Kit Text Recognition**: Uses Google ML Kit for text recognition from camera frames
-- 📍 **GPS Tracking**: Records location data for each detected license plate
-- 💾 **Local Database**: SQLite storage for license plate history
-- 🔔 **Push Notifications**: Alerts when previously seen plates are detected
-- 📊 **History View**: Browse all detected license plates with timestamps and locations
+1. **Install dependencies:**
+   ```sh
+   npm install
+   npx expo install expo-camera
+   npm install @react-native-ml-kit/text-recognition
+   ```
 
-## Tech Stack
+2. **Start the Expo development server:**
+   ```sh
+   npx expo start --lan
+   ```
+   - Use `--lan` to ensure the Android emulator can access your dev server.
 
-- **React Native** with **Expo SDK 53**
-- **TypeScript**
-- **React Navigation** for tab navigation
-- **Expo Status Bar** for status bar management
-- **React Native Safe Area Context** for safe area handling
+3. **Run on Android Emulator:**
+   - Start your emulator (e.g., Pixel_6)
+   - Open Expo Go on the emulator
+   - Enter the LAN URL (e.g., `exp://192.168.1.114:8081` or the port shown in your terminal)
+   - Grant camera permissions when prompted
 
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-- Expo CLI (`npm install -g expo`)
-
-### Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/fennar01/anpr.git
-cd anpr
-```
-
-2. Install dependencies:
-```bash
-npm install
-```
-
-3. Start the development server:
-```bash
-npx expo start
-```
-
-### Running the App
-
-#### Mobile Device (Recommended)
-1. Install **Expo Go** on your device:
-   - **iOS:** [Expo Go on the App Store](https://apps.apple.com/app/expo-go/id982107779)
-   - **Android:** [Expo Go on Google Play](https://play.google.com/store/apps/details?id=host.exp.exponent)
-2. Make sure your phone and computer are on the same Wi-Fi network
-3. Scan the QR code shown in the terminal with Expo Go
-
-#### iOS Simulator
-```bash
-npx expo start --ios
-```
-
-#### Android Emulator
-```bash
-npx expo start --android
-```
-
-#### Web Browser
-```bash
-npx expo start --web
-```
-
-## Project Structure
-
-```
-src/
-├── screens/
-│   ├── CameraScreen.tsx      # Camera placeholder interface
-│   └── HistoryScreen.tsx     # License plate history placeholder
-├── services/
-│   └── PlateRecognitionService.ts  # Placeholder ML Kit integration
-├── database/
-│   └── Database.ts           # Placeholder SQLite operations
-└── mocks/                    # Web compatibility mocks (unused in current version)
-    ├── react-native-sqlite-storage.web.ts
-    ├── @notifee/react-native.web.ts
-    ├── @react-native-community/geolocation.web.ts
-    └── @react-native-ml-kit/text-recognition.web.ts
-```
-
-## Current Implementation
-
-### App.tsx
-- Simplified main component with basic navigation
-- No complex initialization or error handling
-- Clean tab navigation setup
-
-### CameraScreen.tsx
-- Placeholder camera interface with mock UI
-- No actual camera functionality
-- Styled placeholder with camera icon and button
-
-### HistoryScreen.tsx
-- Mock data display for license plate history
-- No database integration
-- Clean list interface with sample data
-
-### Services
-- **PlateRecognitionService**: Placeholder service with logging
-- **Database**: Placeholder database with mock operations
-
-## Development Notes
-
-### Why Placeholders?
-The app was experiencing multiple dependency conflicts and module resolution errors. To get a working foundation, all complex features were temporarily replaced with placeholders that:
-- Don't import problematic native modules
-- Provide clear logging for debugging
-- Maintain the app structure for future development
-
-### Next Steps
-1. **Camera Integration**: Add real camera functionality using expo-camera
-2. **ML Kit Setup**: Properly configure @react-native-ml-kit/text-recognition
-3. **Database**: Implement real SQLite storage
-4. **Geolocation**: Add location tracking
-5. **Notifications**: Implement push notifications
-
-### Dependencies
-The app currently uses minimal dependencies to ensure stability:
-- Core Expo packages
-- React Navigation for routing
-- TypeScript for type safety
+## Usage
+- The app will show a live camera preview.
+- Detected text (including license plates) will be highlighted with a red bounding box and the recognized text above it.
+- No need to position the plate in a specific area—detection works anywhere in the frame.
 
 ## Troubleshooting
+- If you see `Failed to download remote update` in Expo Go, make sure you are using your Mac's LAN IP address, not `localhost` or `127.0.0.1`.
+- If the camera preview is black or not working, ensure you have granted camera permissions.
+- For best results, use a physical device or a high-quality emulator with camera passthrough.
 
-### Common Issues
-- **Port 8081 conflicts**: Kill existing Metro processes with `npx expo start --clear`
-- **Module resolution errors**: The app has been simplified to avoid these issues
-- **Camera not working**: Currently using placeholder - real camera integration pending
-
-### Development Commands
-```bash
-# Start with clean cache
-npx expo start --clear
-
-# Start on specific platform
-npx expo start --ios
-npx expo start --android
-npx expo start --web
-
-# Install dependencies
-npm install
-
-# Clear all caches
-npx expo start --clear
-rm -rf node_modules
-npm install
-```
-
-## Contributing
-
-This is a work in progress. The current focus is on:
-1. Getting the basic app structure stable
-2. Adding real camera functionality
-3. Implementing ML Kit text recognition
-4. Adding database storage
+## Updating
+- To update dependencies:
+  ```sh
+  npm install -g npm@latest
+  npx expo install
+  npm install
+  ```
+- To clear cache:
+  ```sh
+  npx expo start --clear
+  ```
 
 ## License
-
-This project is under development. 
+MIT 

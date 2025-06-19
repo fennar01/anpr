@@ -150,3 +150,9 @@ The app was experiencing persistent loading issues due to complex dependency int
 - **v1.3.0**: Add database storage
 - **v1.4.0**: Restore geolocation and notifications
 - **v2.0.0**: Full ANPR functionality 
+
+## [Unreleased]
+- Replaced static license plate frame with live text recognition using @react-native-ml-kit/text-recognition
+- Bounding boxes are now drawn around detected text anywhere in the camera frame
+- Removed requirement to position plate in a specific area
+- Improved emulator and LAN setup documentation 

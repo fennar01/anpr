@@ -6,50 +6,73 @@ This project is a cross-platform (React Native + Expo) app for live license plat
 - Live camera preview using `expo-camera`
 - Real-time license plate detection using `@react-native-ml-kit/text-recognition`
 - Bounding boxes drawn around detected text (license plates) anywhere in the frame
-- Works on Android emulator and physical devices
+- Works on Android physical devices
+- Standalone APK build (no Expo Go required)
 
-## Setup
+## Quick Start - Install on Your Phone
+
+### Option 1: Install the Pre-built APK (Recommended)
+1. **Download the APK:**
+   - The latest APK is located at: `build-1750315978588.apk` in the project root
+   - Transfer this file to your Android phone using any method (USB, Google Drive, etc.)
+
+2. **Install on your phone:**
+   - Enable "Install from unknown sources" in your Android settings
+   - Open the APK file and install
+   - Launch the app and grant camera permissions
+
+### Option 2: Build Your Own APK
+1. **Install dependencies:**
+   ```sh
+   npm install
+   ```
+
+2. **Build the production APK:**
+   ```sh
+   npx eas build --profile production --platform android --local
+   ```
+
+3. **Install the APK:**
+   - The APK will be created in the project root
+   - Transfer to your phone and install
+
+## Development Setup
 
 1. **Install dependencies:**
    ```sh
    npm install
-   npx expo install expo-camera
-   npm install @react-native-ml-kit/text-recognition
    ```
 
-2. **Start the Expo development server:**
+2. **Build for development:**
    ```sh
-   npx expo start --lan
+   cd android && ./gradlew assembleDebug
    ```
-   - Use `--lan` to ensure the Android emulator can access your dev server.
 
-3. **Run on Android Emulator:**
-   - Start your emulator (e.g., Pixel_6)
-   - Open Expo Go on the emulator
-   - Enter the LAN URL (e.g., `exp://192.168.1.114:8081` or the port shown in your terminal)
-   - Grant camera permissions when prompted
+3. **Install development build:**
+   ```sh
+   adb install app/build/outputs/apk/debug/app-debug.apk
+   ```
 
 ## Usage
-- The app will show a live camera preview.
-- Detected text (including license plates) will be highlighted with a red bounding box and the recognized text above it.
-- No need to position the plate in a specific area—detection works anywhere in the frame.
+- The app will show a live camera preview
+- Detected text (including license plates) will be highlighted with a red bounding box and the recognized text above it
+- No need to position the plate in a specific area—detection works anywhere in the frame
+- Use the bottom tabs to switch between Camera and History views
+
+## Requirements
+- Android device with camera
+- Android 7.0 (API level 24) or higher
+- Camera permissions
 
 ## Troubleshooting
-- If you see `Failed to download remote update` in Expo Go, make sure you are using your Mac's LAN IP address, not `localhost` or `127.0.0.1`.
-- If the camera preview is black or not working, ensure you have granted camera permissions.
-- For best results, use a physical device or a high-quality emulator with camera passthrough.
+- If the camera preview is black or not working, ensure you have granted camera permissions
+- For best results, use a physical device with good lighting
+- The app requires camera permissions to function
 
-## Updating
-- To update dependencies:
-  ```sh
-  npm install -g npm@latest
-  npx expo install
-  npm install
-  ```
-- To clear cache:
-  ```sh
-  npx expo start --clear
-  ```
+## Building
+- **Production build:** `npx eas build --profile production --platform android --local`
+- **Development build:** `cd android && ./gradlew assembleDebug`
+- **Clean build:** `cd android && ./gradlew clean && ./gradlew assembleDebug`
 
 ## License
 MIT 

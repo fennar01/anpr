@@ -4,7 +4,6 @@
     "slug": "anpr",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -20,11 +19,17 @@
     "android": {
       "adaptiveIcon": {
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.fennar01.anpr"
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "sdkVersion": "53.0.0"
+    "sdkVersion": "53.0.0",
+    "extra": {
+      "eas": {
+        "projectId": "7bbd7780-bda7-45d0-a2c4-f19b9f045c06"
+      }
+    }
   }
-} 
+}
